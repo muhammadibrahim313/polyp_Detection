@@ -141,6 +141,38 @@ st.markdown("""
         background: linear-gradient(180deg, #1a1a1a 0%, #0c0c0c 100%);
     }
     
+    /* Make sidebar wider by default */
+    .css-1lcbmhc {
+        width: 350px !important;
+        min-width: 350px !important;
+    }
+    
+    .css-1cypcdb {
+        width: 350px !important;
+        min-width: 350px !important;
+    }
+    
+    .css-17eq0hr {
+        width: 350px !important;
+        min-width: 350px !important;
+    }
+    
+    /* Adjust main content to accommodate wider sidebar */
+    .css-k1vhr4 {
+        margin-left: 350px !important;
+    }
+    
+    /* Alternative sidebar selectors for different Streamlit versions */
+    [data-testid="stSidebar"] {
+        width: 350px !important;
+        min-width: 350px !important;
+    }
+    
+    [data-testid="stSidebar"] > div {
+        width: 350px !important;
+        min-width: 350px !important;
+    }
+    
     /* Metrics styling */
     .metric-card {
         background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
@@ -191,6 +223,29 @@ st.markdown("""
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     .stDeployButton {display: none;}
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .css-1lcbmhc, .css-1cypcdb, .css-17eq0hr, [data-testid="stSidebar"] {
+            width: 300px !important;
+            min-width: 300px !important;
+        }
+        
+        .main-header h1 {
+            font-size: 2rem;
+        }
+        
+        .main-header p {
+            font-size: 1rem;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .css-1lcbmhc, .css-1cypcdb, .css-17eq0hr, [data-testid="stSidebar"] {
+            width: 280px !important;
+            min-width: 280px !important;
+        }
+    }
 </style>
 """, unsafe_allow_html=True)
 
