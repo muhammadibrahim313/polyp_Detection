@@ -298,10 +298,10 @@ def load_example_image(image_url):
 def predict_polyp(image, threshold=0.5):
     """Predict polyp in uploaded image"""
     if st.session_state.model is None:
-        return None, "❌ Model not loaded! Please wait for model to load.", None, None
+        return None, None, None, "❌ Model not loaded! Please wait for model to load."
     
     if image is None:
-        return None, "❌ Please upload an image first!", None, None
+        return None, None, None, "❌ Please upload an image first!"
     
     try:
         # Convert image to numpy array
@@ -367,9 +367,10 @@ def predict_polyp(image, threshold=0.5):
         result_image = Image.open(buf)
         plt.close()
         
-        return result_image, polyp_percentage, polyp_pixels, total_pixels
+        return result_image, polyp_percentage, int(polyp_pixels), total_pixels
         
     except Exception as e:
+        st.error(f"Error during prediction: {str(e)}")
         return None, None, None, f"❌ Error processing image: {str(e)}"
 
 # Main App
@@ -452,26 +453,28 @@ def main():
         display_image = None
         if uploaded_file is not None:
             display_image = Image.open(uploaded_file)
-            st.image(display_image, caption="Uploaded Image", use_column_width=True)
+            st.image(display_image, caption="Uploaded Image", width=None)
         elif 'example_image' in st.session_state:
             display_image = st.session_state.example_image
-            st.image(display_image, caption="Example Image", use_column_width=True)
+            st.image(display_image, caption="Example Image", width=None)
         
         # Analyze button
         if st.button("🔍 Analyze for Polyps", type="primary", use_container_width=True):
             if display_image is not None:
                 with st.spinner("🔄 Analyzing image..."):
-                    result_image, polyp_percentage, polyp_pixels, error = predict_polyp(display_image, threshold)
+                    result_image, polyp_percentage, polyp_pixels, total_pixels = predict_polyp(display_image, threshold)
                     
-                    if error:
-                        st.error(error)
-                    else:
+                    if result_image is not None and polyp_percentage is not None:
                         st.session_state.results = {
                             'image': result_image,
                             'percentage': polyp_percentage,
                             'pixels': polyp_pixels,
+                            'total_pixels': total_pixels,
                             'threshold': threshold
                         }
+                        st.success("✅ Analysis completed successfully!")
+                    else:
+                        st.error(f"Analysis failed: {total_pixels}")
             else:
                 st.warning("Please upload an image or select an example first!")
     
@@ -483,7 +486,7 @@ def main():
             
             # Display result image
             if results['image']:
-                st.image(results['image'], use_column_width=True)
+                st.image(results['image'], width=None)
             
             # Metrics
             col_a, col_b, col_c = st.columns(3)
@@ -499,7 +502,7 @@ def main():
             with col_b:
                 st.markdown(f"""
                 <div class="metric-card">
-                    <p class="metric-value">{int(results['pixels']):,}</p>
+                    <p class="metric-value">{results['pixels']:,}</p>
                     <p class="metric-label">Detected Pixels</p>
                 </div>
                 """, unsafe_allow_html=True)
@@ -537,7 +540,8 @@ def main():
                 **Input Size:** 384×384 pixels  
                 **Base Channels:** 32  
                 **Detection Threshold:** {results['threshold']}  
-                **Total Pixels:** {384*384:,}  
+                **Total Pixels:** {results['total_pixels']:,}  
+                **Detected Pixels:** {results['pixels']:,}  
                 **Processing Time:** < 1 second  
                 """)
         
