@@ -402,7 +402,7 @@ def load_model():
     try:
         with st.spinner("Loading AI model..."):
             model_path = hf_hub_download(
-                repo_id="ibrahim313/unet-polyp-detection",
+                repo_id="ibrahim313/unet-adam-diceloss",
                 filename="pytorch_model.bin"
             )
             
@@ -540,13 +540,13 @@ def main():
         col1, col2 = st.columns(2)
         with col1:
             if st.button("Sample 1", use_container_width=True):
-                example_img = load_example_image("https://github.com/ibrahim313/polyp_detection/raw/main/sample1.jpg")
+                example_img = load_example_image("https://github.com/muhammadibrahim313/polyp_Detection/raw/main/cju0qoxqj9q6s0835b43399p4.jpg")
                 if example_img:
                     st.session_state.example_image = example_img
         
         with col2:
             if st.button("Sample 2", use_container_width=True):
-                example_img = load_example_image("https://github.com/ibrahim313/polyp_detection/raw/main/sample2.jpg")
+                example_img = load_example_image("https://github.com/muhammadibrahim313/polyp_Detection/raw/main/cju0roawvklrq0799vmjorwfv.jpg")
                 if example_img:
                     st.session_state.example_image = example_img
         
@@ -559,6 +559,7 @@ def main():
         **Architecture:** U-Net  
         **Input Size:** 384×384  
         **Developer:** Asim Khan  
+        **Repository:** ibrahim313/unet-adam-diceloss  
         **Status:** Ready
         """)
         st.markdown('</div>', unsafe_allow_html=True)
