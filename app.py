@@ -402,7 +402,7 @@ def load_model():
     try:
         with st.spinner("Loading AI model..."):
             model_path = hf_hub_download(
-                repo_id="asimkhan313/unet-polyp-detection",
+                repo_id="ibrahim313/unet-polyp-detection",
                 filename="pytorch_model.bin"
             )
             
