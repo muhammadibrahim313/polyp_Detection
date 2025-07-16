@@ -136,23 +136,35 @@ st.markdown("""
         background: rgba(59, 130, 246, 0.05);
     }
     
-    /* Buttons */
+    /* Button styling */
     .stButton > button {
-        background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 0.75rem 1.5rem;
-        font-weight: 500;
-        font-size: 0.95rem;
-        transition: all 0.2s ease;
-        width: 100%;
-        box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+        background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue)) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 8px !important;
+        padding: 0.75rem 1.5rem !important;
+        font-weight: 500 !important;
+        font-size: 0.95rem !important;
+        transition: all 0.2s ease !important;
+        width: 100% !important;
+        box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2) !important;
+        height: auto !important;
+        min-height: 44px !important;
     }
     
     .stButton > button:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+        transform: translateY(-1px) !important;
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3) !important;
+        background: linear-gradient(135deg, var(--light-blue), var(--primary-blue)) !important;
+    }
+    
+    .stButton > button:active {
+        transform: translateY(0) !important;
+    }
+    
+    .stButton > button p {
+        color: white !important;
+        margin: 0 !important;
     }
     
     /* Metrics */
@@ -522,7 +534,7 @@ def main():
         
         # Detection sensitivity
         st.markdown('<div class="control-card">', unsafe_allow_html=True)
-        st.markdown('<h3>Detection Sensitivity</h3>', unsafe_allow_html=True)
+        st.markdown('<h3>🎯 Detection Sensitivity</h3>', unsafe_allow_html=True)
         threshold = st.slider(
             "Threshold",
             min_value=0.1,
@@ -535,17 +547,17 @@ def main():
         
         # Example images
         st.markdown('<div class="control-card">', unsafe_allow_html=True)
-        st.markdown('<h3>Sample Images</h3>', unsafe_allow_html=True)
+        st.markdown('<h3>📸 Sample Images</h3>', unsafe_allow_html=True)
         
         col1, col2 = st.columns(2)
         with col1:
-            if st.button("Sample 1", use_container_width=True):
+            if st.button("🖼️ Sample 1", use_container_width=True):
                 example_img = load_example_image("https://github.com/muhammadibrahim313/polyp_Detection/raw/main/cju0qoxqj9q6s0835b43399p4.jpg")
                 if example_img:
                     st.session_state.example_image = example_img
         
         with col2:
-            if st.button("Sample 2", use_container_width=True):
+            if st.button("🖼️ Sample 2", use_container_width=True):
                 example_img = load_example_image("https://github.com/muhammadibrahim313/polyp_Detection/raw/main/cju0roawvklrq0799vmjorwfv.jpg")
                 if example_img:
                     st.session_state.example_image = example_img
@@ -554,13 +566,13 @@ def main():
         
         # Model info
         st.markdown('<div class="control-card">', unsafe_allow_html=True)
-        st.markdown('<h3>Model Information</h3>', unsafe_allow_html=True)
+        st.markdown('<h3>ℹ️ Model Information</h3>', unsafe_allow_html=True)
         st.markdown("""
         **Architecture:** U-Net  
         **Input Size:** 384×384  
         **Developer:** Asim Khan  
         **Repository:** ibrahim313/unet-adam-diceloss  
-        **Status:** Ready
+        **Status:** ✅ Ready
         """)
         st.markdown('</div>', unsafe_allow_html=True)
     
@@ -581,10 +593,10 @@ def main():
         display_image = None
         if uploaded_file is not None:
             display_image = Image.open(uploaded_file)
-            st.image(display_image, caption="Uploaded Image", use_column_width=True)
+            st.image(display_image, caption="Uploaded Image", use_container_width=True)
         elif 'example_image' in st.session_state:
             display_image = st.session_state.example_image
-            st.image(display_image, caption="Sample Image", use_column_width=True)
+            st.image(display_image, caption="Sample Image", use_container_width=True)
         
         # Analyze button
         if st.button("🔍 Analyze Image", type="primary", use_container_width=True):
@@ -614,7 +626,7 @@ def main():
             
             # Display result image
             if results['image']:
-                st.image(results['image'], use_column_width=True)
+                st.image(results['image'], use_container_width=True)
             
             # Metrics
             st.markdown('<div class="metric-grid">', unsafe_allow_html=True)
