@@ -532,6 +532,16 @@ def main():
     with st.sidebar:
         st.markdown('<div class="section-header">Model Controls</div>', unsafe_allow_html=True)
         
+        # Model Status Card
+        st.markdown('<div class="control-card">', unsafe_allow_html=True)
+        st.markdown('<h3>🟢 System Status</h3>', unsafe_allow_html=True)
+        if st.session_state.model_loaded:
+            st.markdown("✅ **Model Ready**")
+            st.markdown("🔄 **Processing Available**")
+        else:
+            st.markdown("⏳ **Loading Model...**")
+        st.markdown('</div>', unsafe_allow_html=True)
+        
         # Detection sensitivity
         st.markdown('<div class="control-card">', unsafe_allow_html=True)
         st.markdown('<h3>🎯 Detection Sensitivity</h3>', unsafe_allow_html=True)
@@ -543,6 +553,25 @@ def main():
             step=0.1,
             help="Higher values = more sensitive detection"
         )
+        st.markdown('</div>', unsafe_allow_html=True)
+        
+        # Quick Actions Card
+        st.markdown('<div class="control-card">', unsafe_allow_html=True)
+        st.markdown('<h3>⚡ Quick Actions</h3>', unsafe_allow_html=True)
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("🔄 Reset", use_container_width=True):
+                if 'results' in st.session_state:
+                    del st.session_state.results
+                if 'example_image' in st.session_state:
+                    del st.session_state.example_image
+                st.rerun()
+        
+        with col2:
+            if st.button("ℹ️ Help", use_container_width=True):
+                st.info("Upload a colonoscopy image and click Analyze to detect polyps!")
+        
         st.markdown('</div>', unsafe_allow_html=True)
         
         # Example images
