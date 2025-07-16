@@ -533,7 +533,7 @@ def main():
         st.markdown('<div class="section-header">Model Controls</div>', unsafe_allow_html=True)
         
         # Model Status Card
-        st.markdown('<div class="control-card">', unsafe_allow_html=True)
+        #st.markdown('<div class="control-card">', unsafe_allow_html=True)
         st.markdown('<h3>🟢 System Status</h3>', unsafe_allow_html=True)
         if st.session_state.model_loaded:
             st.markdown("✅ **Model Ready**")
