@@ -540,13 +540,13 @@ def main():
         col1, col2 = st.columns(2)
         with col1:
             if st.button("Sample 1", use_container_width=True):
-                example_img = load_example_image("https://github.com/asimkhan313/polyp_detection/raw/main/sample1.jpg")
+                example_img = load_example_image("https://github.com/ibrahim313/polyp_detection/raw/main/sample1.jpg")
                 if example_img:
                     st.session_state.example_image = example_img
         
         with col2:
             if st.button("Sample 2", use_container_width=True):
-                example_img = load_example_image("https://github.com/asimkhan313/polyp_detection/raw/main/sample2.jpg")
+                example_img = load_example_image("https://github.com/ibrahim313/polyp_detection/raw/main/sample2.jpg")
                 if example_img:
                     st.session_state.example_image = example_img
         
